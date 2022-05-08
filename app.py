@@ -1,13 +1,12 @@
 import pandas as pd
 import numpy as np
 
-
-df = pd.read_csv('/Users/williamma/downloads/Psych_Research/data/input/suicide-death-rates.csv')
-df
-
 import plotly.express as px
 import plotly
 import plotly.io as pio
+
+df = pd.read_csv('/Users/williamma/downloads/Psych_Research/data/input/suicide-death-rates.csv')
+df
 
 # https://plotly.com/python/choropleth-maps/
 
@@ -23,14 +22,23 @@ fig = px.choropleth(df, locations="Code",  animation_frame="Year", animation_gro
 fig["layout"].pop("updatemenus") # optional, drop animation buttons
 
 
-pio.write_html(fig, file='figure.html', auto_open=True)
-
-# plotly.offline.plot([fig], filename='choropleth.html')
-
-# print(plotly.offline.plot([fig], include_plotlyjs=False, output_type='div'))
+pio.write_html(fig, file='map.html', auto_open=True)
 
 # fig.show()
 
+
+df1 = pd.read_csv('/Users/williamma/downloads/Psych_Research/data/input/suicide-rate-vs-income-inequality.csv')
+df
+
+fig1 = px.scatter(df1, animation_frame="Year", animation_group="Entity", size="Population (historical estimates)",
+          color="Suicide mortality rate (per 100,000 population)", hover_name="Entity")
+
+fig1["layout"].pop("updatemenus") # optional, drop animation buttons
+
+pio.write_html(fig, file='scatter.html', auto_open=True)
+
+
+#ATTEMPTED DASH IMPLEMENTATION
 
 # import plotly.graph_objects as go # or plotly.express as px
 # # fig = go.Figure() # or any Plotly Express function e.g. px.bar(...)
